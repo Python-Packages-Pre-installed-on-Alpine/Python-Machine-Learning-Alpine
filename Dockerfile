@@ -6,6 +6,7 @@ ARG DOCKER_BASE_IMAGE_TAG=tox-alpine
 FROM alpine:3.13
 # make: /usr/bin/make: Operation not permitted
 # https://gitlab.alpinelinux.org/alpine/aports/-/issues/12321
+# 3.13 has no openmpi-dev but that's fine
 
 ARG FIX_ALL_GOTCHAS_SCRIPT_LOCATION
 ARG ETC_ENVIRONMENT_LOCATION
@@ -22,7 +23,7 @@ RUN set -o allexport \
     && ln -s /usr/bin/python3 /usr/bin/python \
     && apk --no-cache add git curl ca-certificates py3-numpy-f2py freetype jpeg libpng libstdc++ libgomp graphviz font-noto \
     # && ln -s locale.h /usr/include/xlocale.h \
-    && apk --no-cache add --virtual .build-base g++ musl-dev py3-numpy-dev py3-yaml py3-scipy py3-pandas build-base linux-headers python3-dev git cmake jpeg-dev bash libffi-dev gfortran openblas-dev openmpi-dev numactl-dev freetype-dev libpng-dev \
+    && apk --no-cache add --virtual .build-base g++ musl-dev py3-numpy-dev py3-yaml py3-scipy py3-pandas build-base linux-headers python3-dev git cmake jpeg-dev bash libffi-dev gfortran openblas-dev numactl-dev freetype-dev libpng-dev \
     && apk --no-cache add --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing/ openmp-dev \
     && python -m pip install wheel \
     # && pip install --no-build-isolation torch \
