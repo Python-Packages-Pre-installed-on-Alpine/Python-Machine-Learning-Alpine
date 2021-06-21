@@ -15,11 +15,17 @@ ADD $CLEANUP_SCRIPT_LOCATION .
 RUN set -o allexport \
     && . ./fix_all_gotchas.sh \
     && set +o allexport \
-    && apk --no-cache add curl ca-certificates py3-numpy-f2py freetype jpeg libpng libstdc++ libgomp graphviz font-noto \
+    && apk --no-cache add git curl ca-certificates py3-numpy-f2py freetype jpeg libpng libstdc++ libgomp graphviz font-noto \
     # && ln -s locale.h /usr/include/xlocale.h \
     && apk --no-cache add --virtual .build-base g++ musl-dev py3-numpy-dev py3-scipy py3-pandas build-base linux-headers python3-dev git cmake jpeg-dev bash libffi-dev gfortran openblas-dev freetype-dev libpng-dev \
-    && pip install wheel \
-    && pip install --no-build-isolation torch \
+    && python -m pip install wheel \
+    # && pip install --no-build-isolation torch \
+    # && python -m pip install --pre torch torchvision torchaudio -f https://download.pytorch.org/whl/nightly/cpu/torch_nightly.html
+    # https://github.com/pytorch/pytorch#from-source
+    && git clone --recursive https://github.com/pytorch/pytorch \
+    && cd pytorch \
+    && python setup.py install \
+    && cd .. \
     && apk --no-cache del .build-base \
     && python -c "import torch" \
     && . ./cleanup.sh
