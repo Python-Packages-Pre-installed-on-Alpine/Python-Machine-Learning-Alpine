@@ -19,7 +19,7 @@ RUN set -o allexport \
     # && ln -s locale.h /usr/include/xlocale.h \
     && apk --no-cache add --virtual .build-base g++ musl-dev py3-numpy-dev py3-scipy py3-pandas build-base linux-headers python3-dev git cmake jpeg-dev bash libffi-dev gfortran openblas-dev freetype-dev libpng-dev \
     && pip install wheel \
-    && pip install --no-build-isolation pytorch \
+    && pip install --no-build-isolation torch \
     && apk --no-cache del .build-base \
     && python -c "import torch" \
     && . ./cleanup.sh
