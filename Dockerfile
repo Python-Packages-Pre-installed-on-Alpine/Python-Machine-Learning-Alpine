@@ -29,6 +29,8 @@ RUN set -o allexport \
     # https://github.com/pytorch/pytorch#from-source
     && git clone --recursive https://github.com/pytorch/pytorch \
     && cd pytorch \
+    # https://gitlab.alpinelinux.org/alpine/aports/-/blob/master/community/py3-scipy/APKBUILD
+    && export LDFLAGS="$LDFLAGS -shared" \
     && python setup.py install \
     && cd .. \
     && apk --no-cache del .build-base \
