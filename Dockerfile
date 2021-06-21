@@ -32,7 +32,7 @@ RUN set -o allexport \
     && git clone --recursive https://github.com/pytorch/pytorch \
     && cd pytorch \
     # https://gitlab.alpinelinux.org/alpine/aports/-/blob/master/community/py3-scipy/APKBUILD
-    && export LDFLAGS="$LDFLAGS -shared" \
+    # && export LDFLAGS="$LDFLAGS -shared" \  result: CMake Error at cmake/MiscCheck.cmake:55 (message): Could not run a simple program built with your compiler.
     && python setup.py install \
     && cd .. \
     && apk --no-cache del .build-base \
